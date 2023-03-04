@@ -10,7 +10,6 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-
 main {
   padding: 1rem;
   margin: auto;
@@ -21,15 +20,14 @@ form {
 }
 
 .centered {
-text-align: center;
+  text-align: center;
 }
 
 .image {
-height: 20rem;
-
+  height: 20rem;
 }
 
-.image img{
+.image img {
   height: 100%;
 }
 
@@ -204,6 +202,17 @@ height: 20rem;
 .btn:hover,
 .btn:active {
   background-color: #00695c;
+  color: white;
+}
+
+.btn.danger {
+  color: red;
+  border-color: red;
+}
+
+.btn.danger:hover,
+.btn.danger:active {
+  background: red;
   color: white;
 }
 
