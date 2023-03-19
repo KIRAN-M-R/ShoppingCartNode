@@ -5,11 +5,11 @@ const crypto = require("crypto");
 const User = require("../models/user");
 
 const transporter = nodemailer.createTransport({
-  host: "sandbox.smtp.mailtrap.io",
-  port: 2525,
+  host: process.env.HOST,
+  port: process.env.MAILPORT,
   auth: {
-    user: "ac42dc2590e4bb",
-    pass: "860275406b1b13"
+    user: process.env.MAILUSER,
+    pass: process.env.MAILPASS
   }
 });
 
@@ -165,4 +165,27 @@ exports.postReset = (req, res, next) =>{
 
     })
   })
+}
+
+exports.getNewPassword = (req, res, next)=>{
+const token = req.params.token;
+User.findOne({resetToken: token, resetTokenExpiration: {$gt: Date.now()}}).then((user)=>{
+  let message = req.flash('error');
+  if(message.length > 0){
+    message = message[0];
+  }else{
+    message = null;
+  }
+  res.render("auth/new-password", {
+    path: "/new-password",
+    pageTitle: "New Password",
+    errorMessage: message,
+    userId: user._id.toString()
+    
+  });
+}).catch(err =>{
+  console.log(err);
+})
+
+  
 }
